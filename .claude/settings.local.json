@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell($u='https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson'; $out='C:\\\\Users\\\\Parth Sharma\\\\Documents\\\\study-flight\\\\src\\\\worldLand.json'; Invoke-WebRequest -Uri $u -OutFile $out -UseBasicParsing; $f=Get-Item $out; \"Saved $\\($f.Length\\) bytes\")",
+      "Bash(cd \"C:\\\\Users\\\\Parth Sharma\\\\Downloads\" && wc -l airports.csv && echo \"---HEADER---\" && head -1 airports.csv && echo \"---SAMPLE---\" && head -6 airports.csv | tail -5)",
+      "Bash(awk -F, '{print $NF}' airports.csv)",
+      "Bash(awk -F, 'NR>1 && $1==\"\" {c++} END{print c+0}' airports.csv)",
+      "Bash(awk -F, 'NR>1 && length\\($1\\)==3 {c++} END{print c+0}' airports.csv)",
+      "Bash(node scripts/gen-airports.mjs)",
+      "Bash(awk '{print $5}')"
+    ]
+  }
+}
