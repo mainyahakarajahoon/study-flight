@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti'
 import { SplitFlap, FIDSClock } from './FIDSBoard'
 import { formatHMS } from './useFlightTimer'
 
-export default function ArrivalScreen({ flight, studySeconds, onRestart }) {
+export default function ArrivalScreen({ flight, studySeconds, onRestart, onOpenPassport }) {
   const { from, to } = flight
   const [showFlap, setShowFlap] = useState(false)
   const notes = localStorage.getItem('focusflight_notes') || ''
@@ -94,12 +94,24 @@ export default function ArrivalScreen({ flight, studySeconds, onRestart }) {
           </div>
         </div>
 
-        <button
-          onClick={onRestart}
-          className="mt-8 w-full py-4 bg-fids-amber text-black text-lg tracking-[0.3em] font-bold hover:bg-fids-gold active:scale-[0.99] transition-all shadow-[0_0_30px_rgba(245,166,35,0.35)]"
-        >
-          BOOK NEXT FLIGHT →
-        </button>
+        <div className="mt-6 text-center text-fids-dim text-[11px] tracking-[0.25em]">
+          ✓ SAVED TO YOUR FLIGHT LOG
+        </div>
+
+        <div className="mt-3 grid sm:grid-cols-[1fr_auto] gap-3">
+          <button
+            onClick={onRestart}
+            className="w-full py-4 bg-fids-amber text-black text-lg tracking-[0.3em] font-bold hover:bg-fids-gold active:scale-[0.99] transition-all shadow-[0_0_30px_rgba(245,166,35,0.35)]"
+          >
+            BOOK NEXT FLIGHT →
+          </button>
+          <button
+            onClick={onOpenPassport}
+            className="w-full sm:w-auto px-6 py-4 border border-fids-amber/50 text-fids-amber text-sm tracking-[0.25em] hover:bg-fids-amber/10 transition-colors"
+          >
+            🛂 VIEW PASSPORT
+          </button>
+        </div>
       </div>
     </div>
   )

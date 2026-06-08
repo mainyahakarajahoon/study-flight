@@ -99,7 +99,7 @@ function AirportPicker({ label, value, onSelect, exclude, airports, loading }) {
   )
 }
 
-export default function DepartureBoard({ onCheckIn }) {
+export default function DepartureBoard({ onCheckIn, user, onOpenPassport }) {
   const [from, setFrom] = useState(null)
   const [to, setTo] = useState(null)
   const [airports, setAirports] = useState([])
@@ -134,6 +134,19 @@ export default function DepartureBoard({ onCheckIn }) {
   return (
     <div className="min-h-screen bg-fids-bg text-fids-white px-3 sm:px-6 py-5 sm:py-8 font-fids">
       <div className="max-w-3xl mx-auto">
+        {/* Traveller bar */}
+        <div className="flex items-center justify-between mb-3 text-xs">
+          <span className="text-fids-dim tracking-[0.25em]">
+            ✦ WELCOME, <span className="text-fids-amber">{(user?.name || 'TRAVELLER').toUpperCase()}</span>
+          </span>
+          <button
+            onClick={onOpenPassport}
+            className="text-fids-dim hover:text-fids-amber tracking-[0.25em] border border-white/15 hover:border-fids-amber/50 px-3 py-1.5 transition-colors"
+          >
+            🛂 PASSPORT ▸
+          </button>
+        </div>
+
         {/* Header */}
         <div className="flex items-end justify-between border-b-2 border-fids-amber/60 pb-3 mb-2">
           <div>

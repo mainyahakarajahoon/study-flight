@@ -55,16 +55,16 @@ function Field({ label, value }) {
   )
 }
 
-export default function BoardingPass({ flight, onBoard }) {
+export default function BoardingPass({ flight, user, onBoard }) {
   const { from, to, durationSec } = flight
-  const [name, setName] = useState('STUDENT PASSENGER')
+  const [name, setName] = useState((user?.name || 'STUDENT PASSENGER').toUpperCase())
   const [tear, setTear] = useState(0)
   const [torn, setTorn] = useState(false)
   const wrapRef = useRef(null)
   const dragging = useRef(false)
   const startY = useRef(0)
 
-  const flightNo = useMemo(randomFlightNo, [])
+  const flightNo = useMemo(() => flight.flightNo || randomFlightNo(), [flight.flightNo])
   const seat = useMemo(randomSeat, [])
   const gate = useMemo(randomGate, [])
   const seq = useMemo(randomSeq, [])

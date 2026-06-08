@@ -41,10 +41,7 @@ export default function FlightCockpit({ flight, onArrive }) {
   const [soundOn, setSoundOn] = useState(false)
   const audioRef = useRef(null)
 
-  const flightNo = useMemo(
-    () => `ZS ${Math.floor(1000 + Math.random() * 8999)}`,
-    []
-  )
+  const flightNo = flight.flightNo || 'ZS 2809'
   const arrivalClock = useMemo(
     () => formatClock(new Date(Date.now() + remaining * 1000)),
     // recompute occasionally; based on initial remaining is fine but keep live-ish
