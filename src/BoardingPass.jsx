@@ -65,7 +65,7 @@ export default function BoardingPass({ flight, user, onBoard }) {
   const startY = useRef(0)
 
   const flightNo = useMemo(() => flight.flightNo || randomFlightNo(), [flight.flightNo])
-  const seat = useMemo(randomSeat, [])
+  const seat = useMemo(() => flight.seat || randomSeat(), [flight.seat])
   const gate = useMemo(randomGate, [])
   const seq = useMemo(randomSeq, [])
   const zone = useMemo(() => Math.floor(1 + Math.random() * 4), [])

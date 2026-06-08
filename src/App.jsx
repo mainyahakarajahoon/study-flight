@@ -1,5 +1,6 @@
 import { Suspense, lazy, useState } from 'react'
 import DepartureBoard from './DepartureBoard'
+import SeatMap from './SeatMap'
 import BoardingPass from './BoardingPass'
 import AuthScreen from './AuthScreen'
 import { getCurrentUser, logout, addFlight, getNotes, clearNotes } from './store'
@@ -24,7 +25,7 @@ const randomFlightNo = () => {
   }`
 }
 
-// Screen state machine: 1 departures → 2 boarding → 3 flight → 4 arrival; 5 passport
+// Screen state machine: 1 departures → 6 seat → 2 boarding → 3 flight → 4 arrival; 5 passport
 export default function App() {
   const [user, setUser] = useState(() => getCurrentUser())
   const [screen, setScreen] = useState(1)
@@ -36,7 +37,12 @@ export default function App() {
   const handleCheckIn = (f) => {
     clearNotes() // fresh notepad for this flight
     setFlight({ ...f, flightNo: randomFlightNo() })
-    setScreen(2)
+    setScreen(6) // → seat selection
+  }
+
+  const handleSeatConfirm = (seat) => {
+    setFlight((f) => ({ ...f, seat }))
+    setScreen(2) // → boarding pass
   }
 
   const handleBoard = () => setScreen(3)
@@ -57,6 +63,7 @@ export default function App() {
       durationSec: flight.durationSec,
       studySeconds: studied,
       flightNo: flight.flightNo,
+      seat: flight.seat,
       notes: getNotes(),
       date: new Date().toISOString(),
     })
@@ -93,6 +100,9 @@ export default function App() {
           onCheckIn={handleCheckIn}
           onOpenPassport={() => setScreen(5)}
         />
+      )}
+      {screen === 6 && flight && (
+        <SeatMap flight={flight} onConfirm={handleSeatConfirm} onBack={() => setScreen(1)} />
       )}
       {screen === 2 && flight && <BoardingPass flight={flight} user={user} onBoard={handleBoard} />}
       {screen === 3 && flight && <FlightCockpit flight={flight} onArrive={handleArrive} />}
