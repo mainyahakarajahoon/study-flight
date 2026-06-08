@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import landData from './worldLand50.json'
-import bordersData from './worldBorders50.json'
+import landData from './worldLand110.json'
+import bordersData from './worldBorders110.json'
 import { greatCirclePoint, formatLatLon } from './geo'
 
 // Projection space (equirectangular). Larger = more spatial resolution.
@@ -108,10 +108,11 @@ export default function WorldMap({ from, to, progress }) {
   const tx = (VW / 2 - px * Z).toFixed(2)
   const ty = (VH / 2 - py * Z).toFixed(2)
   const camStyle = {
-    transform: `translate(${tx}px, ${ty}px) scale(${Z})`,
+    transform: `translate3d(${tx}px, ${ty}px, 0) scale(${Z})`,
     transformBox: 'view-box',
     transformOrigin: '0px 0px',
     transition: 'transform 0.25s linear',
+    willChange: 'transform', // promote to a GPU layer so panning composites instead of repainting
   }
 
   return (

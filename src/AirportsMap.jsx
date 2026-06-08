@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import landData from './worldLand50.json'
-import bordersData from './worldBorders50.json'
+import landData from './worldLand110.json'
+import bordersData from './worldBorders110.json'
 import { greatCirclePoint } from './geo'
 
 const PW = 2000
